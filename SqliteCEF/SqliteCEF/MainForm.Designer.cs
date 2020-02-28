@@ -50,7 +50,6 @@
             // 
             // DbRoot
             // 
-            this.DbRoot.Enabled = false;
             this.DbRoot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DbRoot.Location = new System.Drawing.Point(12, 43);
             this.DbRoot.Name = "DbRoot";
@@ -88,7 +87,7 @@
             // 
             // Cef_textBox
             // 
-            this.Cef_textBox.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Cef_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Cef_textBox.Location = new System.Drawing.Point(58, 437);
             this.Cef_textBox.Name = "Cef_textBox";
             this.Cef_textBox.Size = new System.Drawing.Size(690, 26);
