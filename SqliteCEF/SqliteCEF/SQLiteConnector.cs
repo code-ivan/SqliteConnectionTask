@@ -12,7 +12,7 @@ namespace SqliteCEF
 {
     class SQLiteConnector : DbConnector
     {
-        public string Root { get; set; }
+        public string Path { get; set; }
         public SQLiteConnector()
         {
         }
@@ -33,9 +33,12 @@ namespace SqliteCEF
 
         public override bool IsConnect()
         {
+            if (Path == String.Empty)
+                return false;
+
             try
             {
-                string connectionString = @"Data Source=" + Root + ";Version=3;";
+                string connectionString = @"Data Source=" + Path + ";Version=3;";
                 Connection.ConnectionString = connectionString;
                 Connection.Open();
 
@@ -114,7 +117,31 @@ namespace SqliteCEF
 
         public override Task<CEFFormat> Select(string query)
         {
-            throw new NotImplementedException();
+            SQLiteCommand command = new SQLiteCommand(query, Connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            CEFFormat format = new CEFFormat();
+
+            return Task.Run(() =>
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        format.Version = reader.GetString(0);
+                        format.Device_Vendor = reader.GetString(1);
+                        format.Device_Product = reader.GetString(2);
+                        format.Device_Version = reader.GetString(3);
+                        format.DeviceEventClassId = reader.GetString(4);
+                        format.Name = reader.GetString(5);
+                        format.Severity = reader.GetString(6);
+                        format.Extension = reader.GetString(7);
+                    }
+                }
+
+                return format;
+            });
+
         }
     }
 }

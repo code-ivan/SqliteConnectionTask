@@ -54,12 +54,12 @@
             this.DbRoot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DbRoot.Location = new System.Drawing.Point(12, 43);
             this.DbRoot.Name = "DbRoot";
-            this.DbRoot.Size = new System.Drawing.Size(469, 26);
+            this.DbRoot.Size = new System.Drawing.Size(690, 26);
             this.DbRoot.TabIndex = 0;
             // 
             // Browse_Button
             // 
-            this.Browse_Button.Location = new System.Drawing.Point(487, 43);
+            this.Browse_Button.Location = new System.Drawing.Point(708, 43);
             this.Browse_Button.Name = "Browse_Button";
             this.Browse_Button.Size = new System.Drawing.Size(83, 26);
             this.Browse_Button.TabIndex = 1;
@@ -69,15 +69,16 @@
             // 
             // Query_TextBox
             // 
+            this.Query_TextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Query_TextBox.Location = new System.Drawing.Point(58, 167);
             this.Query_TextBox.Multiline = true;
             this.Query_TextBox.Name = "Query_TextBox";
-            this.Query_TextBox.Size = new System.Drawing.Size(454, 195);
+            this.Query_TextBox.Size = new System.Drawing.Size(690, 195);
             this.Query_TextBox.TabIndex = 2;
             // 
             // CreateCef_Button
             // 
-            this.CreateCef_Button.Location = new System.Drawing.Point(429, 368);
+            this.CreateCef_Button.Location = new System.Drawing.Point(665, 368);
             this.CreateCef_Button.Name = "CreateCef_Button";
             this.CreateCef_Button.Size = new System.Drawing.Size(83, 26);
             this.CreateCef_Button.TabIndex = 3;
@@ -87,10 +88,10 @@
             // 
             // Cef_textBox
             // 
-            this.Cef_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Cef_textBox.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Cef_textBox.Location = new System.Drawing.Point(58, 437);
             this.Cef_textBox.Name = "Cef_textBox";
-            this.Cef_textBox.Size = new System.Drawing.Size(454, 26);
+            this.Cef_textBox.Size = new System.Drawing.Size(690, 26);
             this.Cef_textBox.TabIndex = 4;
             // 
             // Connect_Button
@@ -147,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 501);
+            this.ClientSize = new System.Drawing.Size(809, 501);
             this.Controls.Add(this.Close_Button);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

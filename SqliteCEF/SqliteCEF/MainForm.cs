@@ -39,7 +39,7 @@ namespace SqliteCEF
                 try
                 {
                     string root = DbRoot.Text;
-                    dbConnection.Root = root;
+                    dbConnection.Path = root;
                     if (dbConnection.IsConnect())
                     {
                         Connect_Button.Enabled = false;
@@ -51,9 +51,9 @@ namespace SqliteCEF
                         MessageBox.Show("Something gone wrong!");
                     }
                 }
-                catch(Exception message)
+                catch(Exception exp)
                 {
-                    MessageBox.Show(message.Message);
+                    MessageBox.Show(exp.Message);
                 }
             }
         
@@ -61,6 +61,15 @@ namespace SqliteCEF
 
         private void CreateCef_Button_Click(object sender, EventArgs e)
         {
+            try
+            {
+                CEFFormat cef = dbConnection.Select(Query_TextBox.Text).Result;
+                Cef_textBox.Text = cef.CreateFormat(" ");
+            }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
 
         }
 
@@ -73,9 +82,9 @@ namespace SqliteCEF
                 Close_Button.Enabled = false;
                 CreateCef_Button.Enabled = false;
             }
-            catch(Exception message)
+            catch(Exception exp)
             {
-                MessageBox.Show(message.Message);
+                MessageBox.Show(exp.Message);
             }
             
         }
