@@ -45,6 +45,8 @@ namespace SqliteCEF
                         Connect_Button.Enabled = false;
                         Close_Button.Enabled = true;
                         CreateCef_Button.Enabled = true;
+
+                        MessageBox.Show($"{dbConnection.GetLastID("RoomNumber", "Rooms")}");
                     }
                     else
                     {

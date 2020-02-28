@@ -67,17 +67,17 @@ namespace SqliteCEF
 
                 DataTable table = GetDataTable(query);
 
-
                 foreach (DataRow row in table.Rows)
                 {
-                    tables.Append(row.ItemArray[0].ToString()).Append(" ");
+                    tables.Append(row.ItemArray[0].ToString()).Append("|");
                 }
+
+                return tables.ToString();
             }
             catch
             {
-
+                return null;
             }
-            return tables.ToString();
         }
 
         public DataTable GetDataTable(string query)
@@ -85,14 +85,12 @@ namespace SqliteCEF
             try
             {
                 DataTable dt = new DataTable();
-                using (SQLiteCommand cmd = new SQLiteCommand(query, Connection))
-                {
-                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
-                    {
-                        dt.Load(rdr);
-                        return dt;
-                    }
-                }
+                SQLiteCommand command = new SQLiteCommand(query, Connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                dt.Load(reader);
+
+                return dt;
             }
             catch
             {
@@ -112,7 +110,11 @@ namespace SqliteCEF
 
         public override int GetLastID(string columnName, string tableName)
         {
-            throw new NotImplementedException();
+            string query = $"SELECT MAX({columnName}) FROM {tableName}";
+            SQLiteCommand command = new SQLiteCommand(query, Connection);
+            object result = command.ExecuteScalar();
+
+            return Convert.ToInt32(result);
         }
 
         public override Task<CEFFormat> Select(string query)
@@ -128,14 +130,14 @@ namespace SqliteCEF
                 {
                     while (reader.Read())
                     {
-                        format.Version = reader.GetString(0);
-                        format.Device_Vendor = reader.GetString(1);
-                        format.Device_Product = reader.GetString(2);
-                        format.Device_Version = reader.GetString(3);
-                        format.DeviceEventClassId = reader.GetString(4);
-                        format.Name = reader.GetString(5);
-                        format.Severity = reader.GetString(6);
-                        format.Extension = reader.GetString(7);
+                        format.Version = reader.GetValue(0).ToString();
+                        format.Device_Vendor = reader.GetValue(1).ToString();
+                        format.Device_Product = reader.GetValue(2).ToString();
+                        format.Device_Version = reader.GetValue(3).ToString();
+                        format.DeviceEventClassId = reader.GetValue(4).ToString();
+                        format.Name = reader.GetValue(5).ToString();
+                        format.Severity = reader.GetValue(6).ToString();
+                        format.Extension = reader.GetValue(7).ToString();
                     }
                 }
 
