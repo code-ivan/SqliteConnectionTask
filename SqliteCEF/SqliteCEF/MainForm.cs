@@ -43,10 +43,11 @@ namespace SqliteCEF
                     if (dbConnection.IsConnect())
                     {
                         Connect_Button.Enabled = false;
+                        Browse_Button.Enabled = false;
                         Close_Button.Enabled = true;
                         CreateCef_Button.Enabled = true;
 
-                        MessageBox.Show($"{dbConnection.GetLastID("RoomNumber", "Rooms")}");
+                        MessageBox.Show(dbConnection.GetTableData("TestTable"));
                     }
                     else
                     {
@@ -81,6 +82,7 @@ namespace SqliteCEF
             {
                 dbConnection.Close();
                 Connect_Button.Enabled = true;
+                Browse_Button.Enabled = true;
                 Close_Button.Enabled = false;
                 CreateCef_Button.Enabled = false;
             }

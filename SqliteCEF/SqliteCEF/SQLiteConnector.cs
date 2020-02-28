@@ -100,7 +100,30 @@ namespace SqliteCEF
 
         public override string GetTableData(string tableName)
         {
-            throw new NotImplementedException();
+            string query = $"SELECT* FROM {tableName}";
+
+            DataTable dt = GetDataTable(query);
+            StringBuilder tableData = new StringBuilder();
+
+            tableData.Append($"{dt.TableName}\n");
+            
+            foreach(DataColumn column in dt.Columns)
+            {
+                tableData.Append($"\t{column.ColumnName}");
+            }
+            tableData.Append("\n");
+
+            foreach(DataRow row in dt.Rows)
+            {
+                var cells = row.ItemArray;
+
+                foreach (object cell in cells)
+                    tableData.Append($"\t{cell}");
+
+                tableData.Append("\n");      
+            }
+
+            return tableData.ToString();
         }
 
         public override string GetViews(string tableName)
