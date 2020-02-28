@@ -46,8 +46,6 @@ namespace SqliteCEF
                         Browse_Button.Enabled = false;
                         Close_Button.Enabled = true;
                         CreateCef_Button.Enabled = true;
-
-                        MessageBox.Show(dbConnection.GetTableData("TestTable"));
                     }
                     else
                     {
