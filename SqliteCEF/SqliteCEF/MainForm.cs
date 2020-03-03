@@ -34,43 +34,50 @@ namespace SqliteCEF
         {
             var dbConnection = SQLiteConnector.Instance();
 
-            if(DbPath.Text != string.Empty && DbPath.Text.Substring(DbPath.Text.Length - 3) == ".db")
+            if (DbPath.Text != string.Empty)
             {
-                try
+                if (DbPath.Text.Length > 4 && DbPath.Text.Substring(DbPath.Text.Length - 3) == ".db") 
                 {
-                    string root = DbPath.Text;
-                    dbConnection.Path = root;
-                    if (dbConnection.IsConnect())
+                    try
                     {
-                        Connect_Button.Enabled = false;
-                        Browse_Button.Enabled = false;
-                        Close_Button.Enabled = true;
-                        CreateCef_Button.Enabled = true;
+                        string root = DbPath.Text;
+                        dbConnection.Path = root;
+                        if (dbConnection.IsConnect())
+                        {
+                            Connect_Button.Enabled = false;
+                            Browse_Button.Enabled = false;
+                            Close_Button.Enabled = true;
+                            CreateCef_Button.Enabled = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Something gone wrong!");
+                        }
                     }
-                    else
+                    catch (Exception exp)
                     {
-                        MessageBox.Show("Something gone wrong!");
+                        MessageBox.Show(exp.Message);
                     }
                 }
-                catch(Exception exp)
+                else
                 {
-                    MessageBox.Show(exp.Message);
-                }
+                    MessageBox.Show("Please, chose database from file explorer!");
+                }   
             }
             else
             {
                 MessageBox.Show("Please, chose database from file explorer!");
             }
-        
+
         }
 
         private void CreateCef_Button_Click(object sender, EventArgs e)
         {
             var dbConnection = SQLiteConnector.Instance();
 
-            if(DbPath.Text != String.Empty)
+            if (DbPath.Text != String.Empty)
             {
-                if(Query_TextBox.Text !=String.Empty)
+                if (Query_TextBox.Text != String.Empty)
                 {
                     try
                     {
@@ -101,7 +108,7 @@ namespace SqliteCEF
                 Close_Button.Enabled = false;
                 CreateCef_Button.Enabled = false;
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 MessageBox.Show(exp.Message);
             }
