@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SqliteCEF
     class SQLiteConnector : DbConnector
     {
         public string Path { get; set; }
-        public SQLiteConnector()
+        private SQLiteConnector()
         {
         }
 
@@ -46,13 +47,21 @@ namespace SqliteCEF
             }
             catch
             {
-                return false;
+                throw;
             }
         }
 
         public override void Close()
         {
-            Connection.Close();
+            try
+            {
+                Connection.Close();
+            }
+            catch
+            {
+                throw;
+            }
+            
         }
 
         public override string GetTables()
@@ -76,7 +85,7 @@ namespace SqliteCEF
             }
             catch
             {
-                return null;
+                throw;
             }
         }
 
@@ -94,36 +103,44 @@ namespace SqliteCEF
             }
             catch
             {
-                return null;
+                throw;
             }
         }
 
         public override string GetTableData(string tableName)
         {
-            string query = $"SELECT* FROM {tableName}";
+            try
+            {
+                string query = $"SELECT* FROM {tableName}";
 
-            DataTable dt = GetDataTable(query);
-            StringBuilder tableData = new StringBuilder();
+                DataTable dt = GetDataTable(query);
+                StringBuilder tableData = new StringBuilder();
 
-            tableData.Append($"{dt.TableName}\n");
+                tableData.Append($"{dt.TableName}\n");
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    tableData.Append($"\t{column.ColumnName}");
+                }
+                tableData.Append("\n");
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    var cells = row.ItemArray;
+
+                    foreach (object cell in cells)
+                        tableData.Append($"\t{cell}");
+
+                    tableData.Append("\n");
+                }
+
+                return tableData.ToString();
+            }
+            catch
+            {
+                throw;
+            }
             
-            foreach(DataColumn column in dt.Columns)
-            {
-                tableData.Append($"\t{column.ColumnName}");
-            }
-            tableData.Append("\n");
-
-            foreach(DataRow row in dt.Rows)
-            {
-                var cells = row.ItemArray;
-
-                foreach (object cell in cells)
-                    tableData.Append($"\t{cell}");
-
-                tableData.Append("\n");      
-            }
-
-            return tableData.ToString();
         }
 
         public override string GetViews(string tableName)
@@ -133,22 +150,30 @@ namespace SqliteCEF
 
         public override int GetLastID(string columnName, string tableName)
         {
-            string query = $"SELECT MAX({columnName}) FROM {tableName}";
-            SQLiteCommand command = new SQLiteCommand(query, Connection);
-            object result = command.ExecuteScalar();
+            try
+            {
+                string query = $"SELECT MAX({columnName}) FROM {tableName}";
+                SQLiteCommand command = new SQLiteCommand(query, Connection);
+                object result = command.ExecuteScalar();
 
-            return Convert.ToInt32(result);
+                return Convert.ToInt32(result);
+            }
+            catch
+            {
+                throw;
+            }
+            
         }
 
-        public override Task<CEFFormat> Select(string query)
+        public override async Task<CEFFormat> Select(string query)
         {
-            SQLiteCommand command = new SQLiteCommand(query, Connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            CEFFormat format = new CEFFormat();
-
-            return Task.Run(() =>
+            try
             {
+                SQLiteCommand command = new SQLiteCommand(query, Connection);
+                DbDataReader reader = await command.ExecuteReaderAsync();
+
+                CEFFormat format = new CEFFormat();
+
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -165,8 +190,11 @@ namespace SqliteCEF
                 }
 
                 return format;
-            });
-
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

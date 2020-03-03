@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.DbRoot = new System.Windows.Forms.TextBox();
+            this.DbPath = new System.Windows.Forms.TextBox();
             this.Browse_Button = new System.Windows.Forms.Button();
             this.Query_TextBox = new System.Windows.Forms.TextBox();
             this.CreateCef_Button = new System.Windows.Forms.Button();
@@ -39,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Close_Button = new System.Windows.Forms.Button();
+            this.queryError = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -48,13 +49,13 @@
             this.openFileDialog1.Filter = "DB files|*.db";
             this.openFileDialog1.Title = "Browse Text Files";
             // 
-            // DbRoot
+            // DbPath
             // 
-            this.DbRoot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DbRoot.Location = new System.Drawing.Point(12, 43);
-            this.DbRoot.Name = "DbRoot";
-            this.DbRoot.Size = new System.Drawing.Size(690, 26);
-            this.DbRoot.TabIndex = 0;
+            this.DbPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DbPath.Location = new System.Drawing.Point(12, 43);
+            this.DbPath.Name = "DbPath";
+            this.DbPath.Size = new System.Drawing.Size(690, 26);
+            this.DbPath.TabIndex = 0;
             // 
             // Browse_Button
             // 
@@ -74,6 +75,7 @@
             this.Query_TextBox.Name = "Query_TextBox";
             this.Query_TextBox.Size = new System.Drawing.Size(690, 195);
             this.Query_TextBox.TabIndex = 2;
+            this.Query_TextBox.TextChanged += new System.EventHandler(this.Query_TextBox_TextChanged);
             // 
             // CreateCef_Button
             // 
@@ -129,9 +131,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(12, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(161, 25);
+            this.label3.Size = new System.Drawing.Size(189, 25);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Chose local db:";
+            this.label3.Text = "SQLite Data Base:";
             // 
             // Close_Button
             // 
@@ -143,11 +145,22 @@
             this.Close_Button.UseVisualStyleBackColor = true;
             this.Close_Button.Click += new System.EventHandler(this.Close_Button_Click);
             // 
+            // queryError
+            // 
+            this.queryError.AutoSize = true;
+            this.queryError.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.queryError.ForeColor = System.Drawing.Color.Red;
+            this.queryError.Location = new System.Drawing.Point(131, 142);
+            this.queryError.Name = "queryError";
+            this.queryError.Size = new System.Drawing.Size(0, 18);
+            this.queryError.TabIndex = 10;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(809, 501);
+            this.Controls.Add(this.queryError);
             this.Controls.Add(this.Close_Button);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -157,9 +170,10 @@
             this.Controls.Add(this.CreateCef_Button);
             this.Controls.Add(this.Query_TextBox);
             this.Controls.Add(this.Browse_Button);
-            this.Controls.Add(this.DbRoot);
+            this.Controls.Add(this.DbPath);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,7 +182,7 @@
         #endregion
 
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.TextBox DbRoot;
+        private System.Windows.Forms.TextBox DbPath;
         private System.Windows.Forms.Button Browse_Button;
         private System.Windows.Forms.TextBox Query_TextBox;
         private System.Windows.Forms.Button CreateCef_Button;
@@ -178,5 +192,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button Close_Button;
+        private System.Windows.Forms.Label queryError;
     }
 }

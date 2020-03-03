@@ -13,8 +13,6 @@ namespace SqliteCEF
 {
     public partial class MainForm : Form
     {
-        SQLiteConnector dbConnection = SQLiteConnector.Instance();
-
         public MainForm()
         {
             InitializeComponent();
@@ -28,17 +26,19 @@ namespace SqliteCEF
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                DbRoot.Text = openFileDialog1.FileName;
+                DbPath.Text = openFileDialog1.FileName;
             }
         }
 
         private void Connect_Button_Click(object sender, EventArgs e)
         {
-            if(DbRoot.Text != string.Empty)
+            var dbConnection = SQLiteConnector.Instance();
+
+            if(DbPath.Text != string.Empty && DbPath.Text.Substring(DbPath.Text.Length - 3) == ".db")
             {
                 try
                 {
-                    string root = DbRoot.Text;
+                    string root = DbPath.Text;
                     dbConnection.Path = root;
                     if (dbConnection.IsConnect())
                     {
@@ -57,25 +57,42 @@ namespace SqliteCEF
                     MessageBox.Show(exp.Message);
                 }
             }
+            else
+            {
+                MessageBox.Show("Please, chose database from file explorer!");
+            }
         
         }
 
         private void CreateCef_Button_Click(object sender, EventArgs e)
         {
-            try
-            {
-                CEFFormat cef = dbConnection.Select(Query_TextBox.Text).Result;
-                Cef_textBox.Text = cef.CreateFormat(" ");
-            }
-            catch(Exception exp)
-            {
-                MessageBox.Show(exp.Message);
-            }
+            var dbConnection = SQLiteConnector.Instance();
 
+            if(DbPath.Text != String.Empty)
+            {
+                if(Query_TextBox.Text !=String.Empty)
+                {
+                    try
+                    {
+                        CEFFormat cef = dbConnection.Select(Query_TextBox.Text).Result;
+                        Cef_textBox.Text = cef.CreateFormat(" ");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                }
+                else
+                {
+                    queryError.Text = "Enter query first";
+                }
+            }
         }
 
         private void Close_Button_Click(object sender, EventArgs e)
         {
+            var dbConnection = SQLiteConnector.Instance();
             try
             {
                 dbConnection.Close();
@@ -88,7 +105,17 @@ namespace SqliteCEF
             {
                 MessageBox.Show(exp.Message);
             }
-            
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Query_TextBox_TextChanged(object sender, EventArgs e)
+        {
+            queryError.Text = string.Empty;
+        }
+
     }
 }
