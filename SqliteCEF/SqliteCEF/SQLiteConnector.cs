@@ -61,7 +61,7 @@ namespace SqliteCEF
             {
                 throw;
             }
-            
+
         }
 
         public override string GetTables()
@@ -111,27 +111,15 @@ namespace SqliteCEF
         {
             try
             {
-                string query = $"SELECT* FROM {tableName}";
+                string query = $"SELECT name FROM PRAGMA_TABLE_INFO('{tableName}')";
 
                 DataTable dt = GetDataTable(query);
                 StringBuilder tableData = new StringBuilder();
 
-                tableData.Append($"{dt.TableName}\n");
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    tableData.Append($"\t{column.ColumnName}");
-                }
-                tableData.Append("\n");
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    var cells = row.ItemArray;
-
-                    foreach (object cell in cells)
-                        tableData.Append($"\t{cell}");
-
-                    tableData.Append("\n");
+                    tableData.Append(row.ItemArray[0].ToString()).Append("|");
                 }
 
                 return tableData.ToString();
@@ -140,7 +128,7 @@ namespace SqliteCEF
             {
                 throw;
             }
-            
+
         }
 
         public override string GetViews(string tableName)
@@ -162,7 +150,7 @@ namespace SqliteCEF
             {
                 throw;
             }
-            
+
         }
 
         public override async Task<CEFFormat> Select(string query)

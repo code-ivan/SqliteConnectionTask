@@ -48,6 +48,11 @@ namespace SqliteCEF
                             Browse_Button.Enabled = false;
                             Close_Button.Enabled = true;
                             CreateCef_Button.Enabled = true;
+                            CreateQuery.Enabled = true;
+                            mappingGroupBox.Enabled = true;
+
+                            LoadTables();
+
                         }
                         else
                         {
@@ -103,10 +108,17 @@ namespace SqliteCEF
             try
             {
                 dbConnection.Close();
+
                 Connect_Button.Enabled = true;
                 Browse_Button.Enabled = true;
                 Close_Button.Enabled = false;
                 CreateCef_Button.Enabled = false;
+                CreateQuery.Enabled = false;
+                mappingGroupBox.Enabled = false;
+
+                tables_comboBox.Items.Clear();
+                tables_comboBox.SelectedItem = null;
+                id_comboBox.Items.Clear();
             }
             catch (Exception exp)
             {
@@ -122,6 +134,113 @@ namespace SqliteCEF
         private void Query_TextBox_TextChanged(object sender, EventArgs e)
         {
             queryError.Text = string.Empty;
+        }
+
+        private void LoadTables()
+        {
+            tables_comboBox.Items.Clear();
+
+            var dbConnection = SQLiteConnector.Instance();
+
+            try
+            {
+                string[] tables = dbConnection.GetTables().Split('|');
+
+                foreach (var table in tables)
+                {
+                    if (table != "")
+                        tables_comboBox.Items.Add(table);
+                }
+
+                tables_comboBox.SelectedIndex = 0;
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+        }
+
+        private void tables_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(tables_comboBox.SelectedItem != null)
+            {
+                id_comboBox.Items.Clear();
+                eventClassId_comboBox.Items.Clear();
+                name_comboBox.Items.Clear();
+                severity_comboBox.Items.Clear();
+                extension_comboBox.Items.Clear();
+
+                var dbConnection = SQLiteConnector.Instance();
+
+                try
+                {
+                    string[] columns = dbConnection.GetTableData(tables_comboBox.SelectedItem.ToString()).Split('|');
+
+                    foreach(var item in columns)
+                    {
+                        if (item != "")
+                        {
+                            id_comboBox.Items.Add(item);
+                            eventClassId_comboBox.Items.Add(item);
+                            name_comboBox.Items.Add(item);
+                            severity_comboBox.Items.Add(item);
+                            extension_comboBox.Items.Add(item);
+                        }
+                    }
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show(exp.Message);
+                }
+            }
+        }
+
+        private void CreateQuery_Click(object sender, EventArgs e)
+        {
+            if(version_textBox.Text != string.Empty 
+               && vendor_textBox.Text != string.Empty
+               && product_textBox.Text != string.Empty
+               && deviceVersion_textBox.Text != string.Empty
+               && exstension_textBox.Text != string.Empty
+               )
+            {
+               if(id_comboBox.SelectedItem != null
+                  && eventClassId_comboBox.SelectedItem != null
+                  && name_comboBox.SelectedItem != null
+                  && severity_comboBox.SelectedItem != null
+                  && extension_comboBox.SelectedItem != null
+                  )
+                {
+                    var dbConnection = SQLiteConnector.Instance();
+
+                    int? lastId;
+                    try
+                    {
+                        lastId = dbConnection.GetLastID(id_comboBox.SelectedItem.ToString(), tables_comboBox.SelectedItem.ToString());
+                    }
+                    catch 
+                    {
+                        lastId = null;
+                    }
+
+                    Query_TextBox.Text = $"SELECT {version_textBox.Text} AS Version, '{vendor_textBox.Text}' AS Device_Vendor , '{product_textBox.Text}' AS Device_Product, '{deviceVersion_textBox.Text}' AS Device_Version, '{eventClassId_comboBox.SelectedItem.ToString()}' AS EventClassId, '{name_comboBox.SelectedItem.ToString()}' AS Name, '{severity_comboBox.SelectedItem.ToString()}' AS Severity, '{extension_comboBox.SelectedItem.ToString()}' AS {exstension_textBox.Text} FROM {tables_comboBox.SelectedItem.ToString()} WHERE {id_comboBox.SelectedItem.ToString()} = {lastId.ToString()}";
+
+                    mappingError.Text = string.Empty;
+                }
+                else
+                {
+                    mappingError.Text = "Please, select columns!";
+                }
+            }
+            else
+            {
+                mappingError.Text = "Please, enter values!";
+            }
+        }
+
+        private void ClearControls(GroupBox groupBox)
+        {
+            
         }
 
     }
