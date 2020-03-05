@@ -41,6 +41,7 @@
             this.Close_Button = new System.Windows.Forms.Button();
             this.queryError = new System.Windows.Forms.Label();
             this.mappingGroupBox = new System.Windows.Forms.GroupBox();
+            this.mappingError = new System.Windows.Forms.Label();
             this.comboBox14 = new System.Windows.Forms.ComboBox();
             this.comboBox13 = new System.Windows.Forms.ComboBox();
             this.comboBox12 = new System.Windows.Forms.ComboBox();
@@ -73,7 +74,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox15 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.mappingError = new System.Windows.Forms.Label();
+            this.onlyBox = new System.Windows.Forms.CheckBox();
             this.mappingGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -228,6 +229,16 @@
             this.mappingGroupBox.Size = new System.Drawing.Size(448, 362);
             this.mappingGroupBox.TabIndex = 11;
             this.mappingGroupBox.TabStop = false;
+            // 
+            // mappingError
+            // 
+            this.mappingError.AutoSize = true;
+            this.mappingError.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.mappingError.ForeColor = System.Drawing.Color.Red;
+            this.mappingError.Location = new System.Drawing.Point(115, 23);
+            this.mappingError.Name = "mappingError";
+            this.mappingError.Size = new System.Drawing.Size(0, 18);
+            this.mappingError.TabIndex = 32;
             // 
             // comboBox14
             // 
@@ -452,6 +463,7 @@
             this.exstension_textBox.Name = "exstension_textBox";
             this.exstension_textBox.Size = new System.Drawing.Size(109, 22);
             this.exstension_textBox.TabIndex = 13;
+            this.exstension_textBox.Text = "testKey";
             // 
             // severity_comboBox
             // 
@@ -490,6 +502,7 @@
             this.deviceVersion_textBox.Name = "deviceVersion_textBox";
             this.deviceVersion_textBox.Size = new System.Drawing.Size(226, 22);
             this.deviceVersion_textBox.TabIndex = 15;
+            this.deviceVersion_textBox.Text = "1.0.0";
             // 
             // product_textBox
             // 
@@ -498,6 +511,7 @@
             this.product_textBox.Name = "product_textBox";
             this.product_textBox.Size = new System.Drawing.Size(226, 22);
             this.product_textBox.TabIndex = 14;
+            this.product_textBox.Text = "Product";
             // 
             // vendor_textBox
             // 
@@ -506,6 +520,7 @@
             this.vendor_textBox.Name = "vendor_textBox";
             this.vendor_textBox.Size = new System.Drawing.Size(226, 22);
             this.vendor_textBox.TabIndex = 13;
+            this.vendor_textBox.Text = "Vendor";
             // 
             // version_textBox
             // 
@@ -514,6 +529,7 @@
             this.version_textBox.Name = "version_textBox";
             this.version_textBox.Size = new System.Drawing.Size(226, 22);
             this.version_textBox.TabIndex = 12;
+            this.version_textBox.Text = "0";
             // 
             // tables_comboBox
             // 
@@ -568,21 +584,23 @@
             this.label14.TabIndex = 31;
             this.label14.Text = "Chose table:";
             // 
-            // mappingError
+            // onlyBox
             // 
-            this.mappingError.AutoSize = true;
-            this.mappingError.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.mappingError.ForeColor = System.Drawing.Color.Red;
-            this.mappingError.Location = new System.Drawing.Point(115, 23);
-            this.mappingError.Name = "mappingError";
-            this.mappingError.Size = new System.Drawing.Size(0, 18);
-            this.mappingError.TabIndex = 32;
+            this.onlyBox.AutoSize = true;
+            this.onlyBox.Location = new System.Drawing.Point(487, 152);
+            this.onlyBox.Name = "onlyBox";
+            this.onlyBox.Size = new System.Drawing.Size(71, 17);
+            this.onlyBox.TabIndex = 32;
+            this.onlyBox.Text = "SQL Only";
+            this.onlyBox.UseVisualStyleBackColor = true;
+            this.onlyBox.CheckedChanged += new System.EventHandler(this.onlyBox_CheckedChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1006, 705);
+            this.Controls.Add(this.onlyBox);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.comboBox15);
             this.Controls.Add(this.label5);
@@ -658,5 +676,6 @@
         private System.Windows.Forms.ComboBox comboBox15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label mappingError;
+        private System.Windows.Forms.CheckBox onlyBox;
     }
 }

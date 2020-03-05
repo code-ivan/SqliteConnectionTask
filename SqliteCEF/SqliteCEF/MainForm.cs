@@ -229,12 +229,12 @@ namespace SqliteCEF
                 }
                 else
                 {
-                    mappingError.Text = "Please, select columns!";
+                    mappingError.Text = "Select columns!";
                 }
             }
             else
             {
-                mappingError.Text = "Please, enter values!";
+                mappingError.Text = "Enter values!";
             }
         }
 
@@ -243,5 +243,16 @@ namespace SqliteCEF
             
         }
 
+        private void onlyBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (mappingGroupBox.Visible)
+            {
+                mappingGroupBox.Visible = false;
+            }
+            else
+            {
+                mappingGroupBox.Visible = true;
+            }
+        }
     }
 }

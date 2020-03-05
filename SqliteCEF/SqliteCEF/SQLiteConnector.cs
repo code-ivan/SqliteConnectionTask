@@ -39,8 +39,8 @@ namespace SqliteCEF
 
             try
             {
-                string connectionString = @"Data Source=" + Path + ";Version=3;";
-                Connection.ConnectionString = connectionString;
+                string connectionString = Base64Encode("Data Source=" + Path + ";Version=3;");
+                Connection.ConnectionString = Base64Decode(connectionString);
                 Connection.Open();
 
                 return true;
@@ -184,6 +184,19 @@ namespace SqliteCEF
                 throw;
             }
         }
+
+        private string Base64Encode(string plainText)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            return Convert.ToBase64String(plainTextBytes);
+        }
+
+        private string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
+            return Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+
     }
 }
 
