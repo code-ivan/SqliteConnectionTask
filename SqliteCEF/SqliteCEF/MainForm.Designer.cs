@@ -455,6 +455,7 @@
             this.extension_comboBox.Size = new System.Drawing.Size(111, 24);
             this.extension_comboBox.TabIndex = 19;
             this.extension_comboBox.Text = " (Extension)";
+            this.extension_comboBox.SelectedIndexChanged += new System.EventHandler(this.extension_comboBox_SelectedIndexChanged);
             // 
             // exstension_textBox
             // 
@@ -474,6 +475,7 @@
             this.severity_comboBox.Size = new System.Drawing.Size(226, 24);
             this.severity_comboBox.TabIndex = 18;
             this.severity_comboBox.Text = "Выбор поля (Severity)";
+            this.severity_comboBox.SelectedIndexChanged += new System.EventHandler(this.severity_comboBox_SelectedIndexChanged);
             // 
             // name_comboBox
             // 
@@ -484,6 +486,7 @@
             this.name_comboBox.Size = new System.Drawing.Size(226, 24);
             this.name_comboBox.TabIndex = 17;
             this.name_comboBox.Text = "Выбор поля (Name)";
+            this.name_comboBox.SelectedIndexChanged += new System.EventHandler(this.name_comboBox_SelectedIndexChanged);
             // 
             // eventClassId_comboBox
             // 
@@ -494,6 +497,7 @@
             this.eventClassId_comboBox.Size = new System.Drawing.Size(226, 24);
             this.eventClassId_comboBox.TabIndex = 16;
             this.eventClassId_comboBox.Text = "Выбор поля (Device Event Class ID)";
+            this.eventClassId_comboBox.SelectedIndexChanged += new System.EventHandler(this.eventClassId_comboBox_SelectedIndexChanged);
             // 
             // deviceVersion_textBox
             // 
@@ -550,6 +554,7 @@
             this.id_comboBox.Size = new System.Drawing.Size(123, 24);
             this.id_comboBox.TabIndex = 19;
             this.id_comboBox.Text = "Выбор поля (ID)";
+            this.id_comboBox.SelectedIndexChanged += new System.EventHandler(this.id_comboBox_SelectedIndexChanged);
             // 
             // label5
             // 

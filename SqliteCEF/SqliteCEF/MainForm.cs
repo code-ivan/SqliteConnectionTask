@@ -119,6 +119,7 @@ namespace SqliteCEF
                 tables_comboBox.Items.Clear();
                 tables_comboBox.SelectedItem = null;
                 id_comboBox.Items.Clear();
+                queryAdded = false;
             }
             catch (Exception exp)
             {
@@ -164,11 +165,7 @@ namespace SqliteCEF
         {
             if(tables_comboBox.SelectedItem != null)
             {
-                id_comboBox.Items.Clear();
-                eventClassId_comboBox.Items.Clear();
-                name_comboBox.Items.Clear();
-                severity_comboBox.Items.Clear();
-                extension_comboBox.Items.Clear();
+                ClearCombos();
 
                 var dbConnection = SQLiteConnector.Instance();
 
@@ -187,6 +184,8 @@ namespace SqliteCEF
                             extension_comboBox.Items.Add(item);
                         }
                     }
+
+                    queryAdded = false;
                 }
                 catch (Exception exp)
                 {
@@ -195,6 +194,7 @@ namespace SqliteCEF
             }
         }
 
+        bool queryAdded = false;
         private void CreateQuery_Click(object sender, EventArgs e)
         {
             if(version_textBox.Text != string.Empty 
@@ -211,21 +211,12 @@ namespace SqliteCEF
                   && extension_comboBox.SelectedItem != null
                   )
                 {
-                    var dbConnection = SQLiteConnector.Instance();
+                    queryAdded = true;
 
-                    int? lastId;
-                    try
-                    {
-                        lastId = dbConnection.GetLastID(id_comboBox.SelectedItem.ToString(), tables_comboBox.SelectedItem.ToString());
-                    }
-                    catch 
-                    {
-                        lastId = null;
-                    }
-
-                    Query_TextBox.Text = $"SELECT {version_textBox.Text} AS Version, '{vendor_textBox.Text}' AS Device_Vendor , '{product_textBox.Text}' AS Device_Product, '{deviceVersion_textBox.Text}' AS Device_Version, '{eventClassId_comboBox.SelectedItem.ToString()}' AS EventClassId, '{name_comboBox.SelectedItem.ToString()}' AS Name, '{severity_comboBox.SelectedItem.ToString()}' AS Severity, '{extension_comboBox.SelectedItem.ToString()}' AS {exstension_textBox.Text} FROM {tables_comboBox.SelectedItem.ToString()} WHERE {id_comboBox.SelectedItem.ToString()} = {lastId.ToString()}";
+                    FillQuery();
 
                     mappingError.Text = string.Empty;
+                    
                 }
                 else
                 {
@@ -238,9 +229,40 @@ namespace SqliteCEF
             }
         }
 
-        private void ClearControls(GroupBox groupBox)
+        private void ClearCombos()
         {
-            
+            id_comboBox.Items.Clear();
+            id_comboBox.Text = "Выбор поля (ID)";
+            eventClassId_comboBox.Items.Clear();
+            eventClassId_comboBox.Text = "Выбор поля (Device Event Class ID)";
+            name_comboBox.Items.Clear();
+            name_comboBox.Text = "Выбор поля (Name)";
+            severity_comboBox.Items.Clear();
+            severity_comboBox.Text = "Выбор поля (Severity)";
+            extension_comboBox.Items.Clear();
+            extension_comboBox.Text = " (Extension)";
+        }
+
+        private void FillQuery()
+        {
+            if (queryAdded)
+            {
+                var dbConnection = SQLiteConnector.Instance();
+
+                int? lastId;
+                try
+                {
+                    lastId = dbConnection.GetLastID(id_comboBox.SelectedItem.ToString(), tables_comboBox.SelectedItem.ToString());
+                }
+                catch
+                {
+                    lastId = null;
+                }
+
+                Query_TextBox.Text = $"SELECT {version_textBox.Text} AS Version, '{vendor_textBox.Text}' AS Device_Vendor , '{product_textBox.Text}' AS Device_Product, '{deviceVersion_textBox.Text}' AS Device_Version, {eventClassId_comboBox.SelectedItem.ToString()} AS EventClassId, {name_comboBox.SelectedItem.ToString()} AS Name, {severity_comboBox.SelectedItem.ToString()} AS Severity, {extension_comboBox.SelectedItem.ToString()} AS {exstension_textBox.Text} FROM {tables_comboBox.SelectedItem.ToString()} WHERE {id_comboBox.SelectedItem.ToString()} = {lastId.ToString()}";
+
+                mappingError.Text = string.Empty;
+            }           
         }
 
         private void onlyBox_CheckedChanged(object sender, EventArgs e)
@@ -253,6 +275,31 @@ namespace SqliteCEF
             {
                 mappingGroupBox.Visible = true;
             }
+        }
+
+        private void id_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillQuery();
+        }
+
+        private void eventClassId_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillQuery();
+        }
+
+        private void name_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillQuery();
+        }
+
+        private void severity_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillQuery();
+        }
+
+        private void extension_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillQuery();
         }
     }
 }
