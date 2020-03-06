@@ -75,6 +75,11 @@
             this.comboBox15 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.onlyBox = new System.Windows.Forms.CheckBox();
+            this.saveConnection = new System.Windows.Forms.CheckBox();
+            this.savedConnections = new System.Windows.Forms.ComboBox();
+            this.ConnectSaved = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.saveConName = new System.Windows.Forms.TextBox();
             this.mappingGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,12 +95,12 @@
             this.DbPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DbPath.Location = new System.Drawing.Point(12, 43);
             this.DbPath.Name = "DbPath";
-            this.DbPath.Size = new System.Drawing.Size(774, 26);
+            this.DbPath.Size = new System.Drawing.Size(546, 26);
             this.DbPath.TabIndex = 0;
             // 
             // Browse_Button
             // 
-            this.Browse_Button.Location = new System.Drawing.Point(792, 43);
+            this.Browse_Button.Location = new System.Drawing.Point(564, 43);
             this.Browse_Button.Name = "Browse_Button";
             this.Browse_Button.Size = new System.Drawing.Size(83, 26);
             this.Browse_Button.TabIndex = 1;
@@ -106,7 +111,7 @@
             // Query_TextBox
             // 
             this.Query_TextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Query_TextBox.Location = new System.Drawing.Point(510, 243);
+            this.Query_TextBox.Location = new System.Drawing.Point(509, 257);
             this.Query_TextBox.Multiline = true;
             this.Query_TextBox.Name = "Query_TextBox";
             this.Query_TextBox.Size = new System.Drawing.Size(461, 253);
@@ -115,7 +120,7 @@
             // 
             // CreateCef_Button
             // 
-            this.CreateCef_Button.Location = new System.Drawing.Point(888, 520);
+            this.CreateCef_Button.Location = new System.Drawing.Point(887, 534);
             this.CreateCef_Button.Name = "CreateCef_Button";
             this.CreateCef_Button.Size = new System.Drawing.Size(83, 26);
             this.CreateCef_Button.TabIndex = 3;
@@ -126,7 +131,7 @@
             // Cef_textBox
             // 
             this.Cef_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Cef_textBox.Location = new System.Drawing.Point(51, 619);
+            this.Cef_textBox.Location = new System.Drawing.Point(50, 633);
             this.Cef_textBox.Name = "Cef_textBox";
             this.Cef_textBox.Size = new System.Drawing.Size(873, 26);
             this.Cef_textBox.TabIndex = 4;
@@ -145,7 +150,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(505, 206);
+            this.label1.Location = new System.Drawing.Point(504, 220);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 25);
             this.label1.TabIndex = 6;
@@ -155,7 +160,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(46, 591);
+            this.label2.Location = new System.Drawing.Point(45, 605);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 25);
             this.label2.TabIndex = 7;
@@ -165,7 +170,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(12, 15);
+            this.label3.Location = new System.Drawing.Point(7, 15);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(189, 25);
             this.label3.TabIndex = 8;
@@ -173,7 +178,7 @@
             // 
             // Close_Button
             // 
-            this.Close_Button.Location = new System.Drawing.Point(112, 75);
+            this.Close_Button.Location = new System.Drawing.Point(281, 75);
             this.Close_Button.Name = "Close_Button";
             this.Close_Button.Size = new System.Drawing.Size(94, 26);
             this.Close_Button.TabIndex = 9;
@@ -186,7 +191,7 @@
             this.queryError.AutoSize = true;
             this.queryError.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryError.ForeColor = System.Drawing.Color.Red;
-            this.queryError.Location = new System.Drawing.Point(596, 211);
+            this.queryError.Location = new System.Drawing.Point(595, 225);
             this.queryError.Name = "queryError";
             this.queryError.Size = new System.Drawing.Size(0, 18);
             this.queryError.TabIndex = 10;
@@ -224,7 +229,7 @@
             this.mappingGroupBox.Controls.Add(this.version_textBox);
             this.mappingGroupBox.Enabled = false;
             this.mappingGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.mappingGroupBox.Location = new System.Drawing.Point(17, 196);
+            this.mappingGroupBox.Location = new System.Drawing.Point(16, 210);
             this.mappingGroupBox.Name = "mappingGroupBox";
             this.mappingGroupBox.Size = new System.Drawing.Size(448, 362);
             this.mappingGroupBox.TabIndex = 11;
@@ -539,7 +544,7 @@
             // 
             this.tables_comboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tables_comboBox.FormattingEnabled = true;
-            this.tables_comboBox.Location = new System.Drawing.Point(17, 148);
+            this.tables_comboBox.Location = new System.Drawing.Point(16, 162);
             this.tables_comboBox.Name = "tables_comboBox";
             this.tables_comboBox.Size = new System.Drawing.Size(226, 24);
             this.tables_comboBox.TabIndex = 18;
@@ -549,7 +554,7 @@
             // 
             this.id_comboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.id_comboBox.FormattingEnabled = true;
-            this.id_comboBox.Location = new System.Drawing.Point(282, 148);
+            this.id_comboBox.Location = new System.Drawing.Point(281, 162);
             this.id_comboBox.Name = "id_comboBox";
             this.id_comboBox.Size = new System.Drawing.Size(123, 24);
             this.id_comboBox.TabIndex = 19;
@@ -562,7 +567,7 @@
             this.label5.Enabled = false;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.DimGray;
-            this.label5.Location = new System.Drawing.Point(407, 148);
+            this.label5.Location = new System.Drawing.Point(406, 162);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 24);
             this.label5.TabIndex = 20;
@@ -573,7 +578,7 @@
             this.comboBox15.Enabled = false;
             this.comboBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox15.FormattingEnabled = true;
-            this.comboBox15.Location = new System.Drawing.Point(425, 148);
+            this.comboBox15.Location = new System.Drawing.Point(424, 162);
             this.comboBox15.Name = "comboBox15";
             this.comboBox15.Size = new System.Drawing.Size(40, 24);
             this.comboBox15.TabIndex = 30;
@@ -583,7 +588,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(13, 125);
+            this.label14.Location = new System.Drawing.Point(12, 139);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(98, 20);
             this.label14.TabIndex = 31;
@@ -592,7 +597,7 @@
             // onlyBox
             // 
             this.onlyBox.AutoSize = true;
-            this.onlyBox.Location = new System.Drawing.Point(487, 152);
+            this.onlyBox.Location = new System.Drawing.Point(486, 166);
             this.onlyBox.Name = "onlyBox";
             this.onlyBox.Size = new System.Drawing.Size(71, 17);
             this.onlyBox.TabIndex = 32;
@@ -600,11 +605,62 @@
             this.onlyBox.UseVisualStyleBackColor = true;
             this.onlyBox.CheckedChanged += new System.EventHandler(this.onlyBox_CheckedChanged);
             // 
+            // saveConnection
+            // 
+            this.saveConnection.AutoSize = true;
+            this.saveConnection.Location = new System.Drawing.Point(124, 81);
+            this.saveConnection.Name = "saveConnection";
+            this.saveConnection.Size = new System.Drawing.Size(107, 17);
+            this.saveConnection.TabIndex = 33;
+            this.saveConnection.Text = "Save connection";
+            this.saveConnection.UseVisualStyleBackColor = true;
+            // 
+            // savedConnections
+            // 
+            this.savedConnections.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.savedConnections.FormattingEnabled = true;
+            this.savedConnections.Location = new System.Drawing.Point(707, 44);
+            this.savedConnections.Name = "savedConnections";
+            this.savedConnections.Size = new System.Drawing.Size(264, 26);
+            this.savedConnections.TabIndex = 34;
+            // 
+            // ConnectSaved
+            // 
+            this.ConnectSaved.Location = new System.Drawing.Point(877, 81);
+            this.ConnectSaved.Name = "ConnectSaved";
+            this.ConnectSaved.Size = new System.Drawing.Size(94, 26);
+            this.ConnectSaved.TabIndex = 35;
+            this.ConnectSaved.Text = "Connect";
+            this.ConnectSaved.UseVisualStyleBackColor = true;
+            this.ConnectSaved.Click += new System.EventHandler(this.ConnectSaved_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label15.Location = new System.Drawing.Point(702, 15);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(201, 25);
+            this.label15.TabIndex = 36;
+            this.label15.Text = "Saved connections:";
+            // 
+            // saveConName
+            // 
+            this.saveConName.Location = new System.Drawing.Point(124, 104);
+            this.saveConName.Name = "saveConName";
+            this.saveConName.Size = new System.Drawing.Size(102, 20);
+            this.saveConName.TabIndex = 37;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1006, 705);
+            this.Controls.Add(this.saveConName);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.ConnectSaved);
+            this.Controls.Add(this.savedConnections);
+            this.Controls.Add(this.saveConnection);
             this.Controls.Add(this.onlyBox);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.comboBox15);
@@ -682,5 +738,10 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label mappingError;
         private System.Windows.Forms.CheckBox onlyBox;
+        private System.Windows.Forms.CheckBox saveConnection;
+        private System.Windows.Forms.ComboBox savedConnections;
+        private System.Windows.Forms.Button ConnectSaved;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox saveConName;
     }
 }

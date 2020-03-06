@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -39,8 +40,26 @@ namespace SqliteCEF
 
             try
             {
-                string connectionString = Base64Encode("Data Source=" + Path + ";Version=3;");
-                Connection.ConnectionString = Base64Decode(connectionString);
+                string connectionString = "Data Source=" + Path + ";Version=3;";
+                Connection.ConnectionString = connectionString;
+                Connection.Open();
+
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public bool IsConnect(string connectionString)
+        {
+            if (connectionString == String.Empty)
+                return false;
+
+            try
+            {
+                Connection.ConnectionString = connectionString;
                 Connection.Open();
 
                 return true;
@@ -185,16 +204,50 @@ namespace SqliteCEF
             }
         }
 
-        private string Base64Encode(string plainText)
+        private Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+        public string GetConnectionString(string name)
         {
-            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-            return Convert.ToBase64String(plainTextBytes);
+            string connectionString = configuration.ConnectionStrings.ConnectionStrings[name].ConnectionString;
+
+            byte[] bytes = Convert.FromBase64String(connectionString);
+            connectionString = Encoding.UTF8.GetString(bytes);
+
+            return connectionString;
         }
 
-        private string Base64Decode(string base64EncodedData)
+        public string GetConnectionStrings()
         {
-            var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
-            return Encoding.UTF8.GetString(base64EncodedBytes);
+            StringBuilder conStrings = new StringBuilder();
+
+            foreach (ConnectionStringSettings connectionString in configuration.ConnectionStrings.ConnectionStrings)
+            {
+                conStrings.Append(connectionString.Name).Append("|");
+            }
+            return conStrings.ToString();
+        }
+
+        public void SaveConnectionString(string name)
+        {
+            string connectionString = Connection.ConnectionString;
+
+            byte[] bytes = Encoding.UTF8.GetBytes(connectionString);
+            connectionString = Convert.ToBase64String(bytes);
+
+            ConnectionStringSettings connectionStringSettings = new ConnectionStringSettings(name, connectionString, "System.Data.Npgsql");
+            configuration.ConnectionStrings.ConnectionStrings.Add(connectionStringSettings);
+
+            configuration.Save();
+            ConfigurationManager.RefreshSection("connectionStrings");
+        }
+
+        public void DeleteConnectionString(string name)
+        {
+            ConnectionStringSettings connectionStringSettings = configuration.ConnectionStrings.ConnectionStrings[name];
+            configuration.ConnectionStrings.ConnectionStrings.Remove(connectionStringSettings);
+
+            configuration.Save();
+            ConfigurationManager.RefreshSection("connectionStrings");
         }
 
     }

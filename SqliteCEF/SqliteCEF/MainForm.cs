@@ -36,15 +36,36 @@ namespace SqliteCEF
 
             if (DbPath.Text != string.Empty)
             {
-                if (DbPath.Text.Length > 4 && DbPath.Text.Substring(DbPath.Text.Length - 3) == ".db") 
+                if (DbPath.Text.Length > 4 && DbPath.Text.Substring(DbPath.Text.Length - 3) == ".db")
                 {
                     try
                     {
                         string root = DbPath.Text;
                         dbConnection.Path = root;
+
                         if (dbConnection.IsConnect())
                         {
+                            if (saveConnection.Checked && saveConName.Text != string.Empty)
+                            {
+                                try
+                                {
+                                    dbConnection.SaveConnectionString(saveConName.Text);
+                                }
+                                catch (Exception exp)
+                                {
+                                    MessageBox.Show(exp.Message);
+                                }
+                            }
+
+                            saveConnection.Checked = false;
+                            saveConnection.Enabled = false;
+
+                            saveConName.Text = string.Empty;
+                            saveConName.Enabled = false;
+                            savedConnections.Enabled = false;
+
                             Connect_Button.Enabled = false;
+                            ConnectSaved.Enabled = false;
                             Browse_Button.Enabled = false;
                             Close_Button.Enabled = true;
                             CreateCef_Button.Enabled = true;
@@ -67,7 +88,7 @@ namespace SqliteCEF
                 else
                 {
                     MessageBox.Show("Please, chose database from file explorer!");
-                }   
+                }
             }
             else
             {
@@ -80,25 +101,22 @@ namespace SqliteCEF
         {
             var dbConnection = SQLiteConnector.Instance();
 
-            if (DbPath.Text != String.Empty)
+            if (Query_TextBox.Text != String.Empty)
             {
-                if (Query_TextBox.Text != String.Empty)
+                try
                 {
-                    try
-                    {
-                        CEFFormat cef = dbConnection.Select(Query_TextBox.Text).Result;
-                        Cef_textBox.Text = cef.CreateFormat(" ");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    CEFFormat cef = dbConnection.Select(Query_TextBox.Text).Result;
+                    Cef_textBox.Text = cef.CreateFormat(" ");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
 
-                }
-                else
-                {
-                    queryError.Text = "Enter query first";
-                }
+            }
+            else
+            {
+                queryError.Text = "Enter query first";
             }
         }
 
@@ -115,11 +133,16 @@ namespace SqliteCEF
                 CreateCef_Button.Enabled = false;
                 CreateQuery.Enabled = false;
                 mappingGroupBox.Enabled = false;
-
+                ConnectSaved.Enabled = true;
+                saveConnection.Enabled = true;
+                saveConName.Enabled = true;
+                savedConnections.Enabled = true;
                 tables_comboBox.Items.Clear();
                 tables_comboBox.SelectedItem = null;
                 id_comboBox.Items.Clear();
                 queryAdded = false;
+
+                LoadSavedConnections();
             }
             catch (Exception exp)
             {
@@ -129,7 +152,7 @@ namespace SqliteCEF
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            LoadSavedConnections();
         }
 
         private void Query_TextBox_TextChanged(object sender, EventArgs e)
@@ -163,7 +186,7 @@ namespace SqliteCEF
 
         private void tables_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(tables_comboBox.SelectedItem != null)
+            if (tables_comboBox.SelectedItem != null)
             {
                 ClearCombos();
 
@@ -173,7 +196,7 @@ namespace SqliteCEF
                 {
                     string[] columns = dbConnection.GetTableData(tables_comboBox.SelectedItem.ToString()).Split('|');
 
-                    foreach(var item in columns)
+                    foreach (var item in columns)
                     {
                         if (item != "")
                         {
@@ -197,26 +220,26 @@ namespace SqliteCEF
         bool queryAdded = false;
         private void CreateQuery_Click(object sender, EventArgs e)
         {
-            if(version_textBox.Text != string.Empty 
+            if (version_textBox.Text != string.Empty
                && vendor_textBox.Text != string.Empty
                && product_textBox.Text != string.Empty
                && deviceVersion_textBox.Text != string.Empty
                && exstension_textBox.Text != string.Empty
                )
             {
-               if(id_comboBox.SelectedItem != null
-                  && eventClassId_comboBox.SelectedItem != null
-                  && name_comboBox.SelectedItem != null
-                  && severity_comboBox.SelectedItem != null
-                  && extension_comboBox.SelectedItem != null
-                  )
+                if (id_comboBox.SelectedItem != null
+                   && eventClassId_comboBox.SelectedItem != null
+                   && name_comboBox.SelectedItem != null
+                   && severity_comboBox.SelectedItem != null
+                   && extension_comboBox.SelectedItem != null
+                   )
                 {
                     queryAdded = true;
 
                     FillQuery();
 
                     mappingError.Text = string.Empty;
-                    
+
                 }
                 else
                 {
@@ -262,7 +285,7 @@ namespace SqliteCEF
                 Query_TextBox.Text = $"SELECT {version_textBox.Text} AS Version, '{vendor_textBox.Text}' AS Device_Vendor , '{product_textBox.Text}' AS Device_Product, '{deviceVersion_textBox.Text}' AS Device_Version, {eventClassId_comboBox.SelectedItem.ToString()} AS EventClassId, {name_comboBox.SelectedItem.ToString()} AS Name, {severity_comboBox.SelectedItem.ToString()} AS Severity, {extension_comboBox.SelectedItem.ToString()} AS {exstension_textBox.Text} FROM {tables_comboBox.SelectedItem.ToString()} WHERE {id_comboBox.SelectedItem.ToString()} = {lastId.ToString()}";
 
                 mappingError.Text = string.Empty;
-            }           
+            }
         }
 
         private void onlyBox_CheckedChanged(object sender, EventArgs e)
@@ -300,6 +323,85 @@ namespace SqliteCEF
         private void extension_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillQuery();
+        }
+
+        private void LoadSavedConnections()
+        {
+            savedConnections.Items.Clear();
+            savedConnections.Refresh();
+
+            var dbConnection = SQLiteConnector.Instance();
+
+            try
+            {
+                dbConnection.DeleteConnectionString("LocalSqlServer");
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                string[] connections = dbConnection.GetConnectionStrings().Split('|');
+
+                foreach (var conString in connections)
+                {
+                    if (conString != "")
+                        savedConnections.Items.Add(conString);
+                }
+
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+        }
+
+        private void ConnectSaved_Click(object sender, EventArgs e)
+        {
+            var dbConnection = SQLiteConnector.Instance();
+
+            if (savedConnections.SelectedItem != null && savedConnections.SelectedItem.ToString() != string.Empty)
+            {
+                try
+                {
+                    string connectionString = dbConnection.GetConnectionString(savedConnections.SelectedItem.ToString());
+
+                    if (dbConnection.IsConnect(connectionString))
+                    {
+                        saveConnection.Checked = false;
+                        saveConnection.Enabled = false;
+
+                        saveConName.Text = string.Empty;
+                        saveConName.Enabled = false;
+                        savedConnections.Enabled = false;
+
+                        ConnectSaved.Enabled = false;
+                        Connect_Button.Enabled = false;
+                        Browse_Button.Enabled = false;
+                        Close_Button.Enabled = true;
+                        CreateCef_Button.Enabled = true;
+                        CreateQuery.Enabled = true;
+                        mappingGroupBox.Enabled = true;
+
+                        LoadTables();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something gone wrong!");
+                    }
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show(exp.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please, chose database from file explorer!");
+            }
         }
     }
 }
