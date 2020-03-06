@@ -234,19 +234,21 @@ namespace SqliteCEF
             byte[] bytes = Encoding.UTF8.GetBytes(connectionString);
             connectionString = Convert.ToBase64String(bytes);
 
-            ConnectionStringSettings connectionStringSettings = new ConnectionStringSettings(name, connectionString, "System.Data.Npgsql");
+            var connectionStringSettings = new ConnectionStringSettings(name, connectionString, "System.Data.SQLite");
             configuration.ConnectionStrings.ConnectionStrings.Add(connectionStringSettings);
 
             configuration.Save();
+
             ConfigurationManager.RefreshSection("connectionStrings");
         }
 
         public void DeleteConnectionString(string name)
         {
-            ConnectionStringSettings connectionStringSettings = configuration.ConnectionStrings.ConnectionStrings[name];
+            var connectionStringSettings = configuration.ConnectionStrings.ConnectionStrings[name];
             configuration.ConnectionStrings.ConnectionStrings.Remove(connectionStringSettings);
 
             configuration.Save();
+
             ConfigurationManager.RefreshSection("connectionStrings");
         }
 

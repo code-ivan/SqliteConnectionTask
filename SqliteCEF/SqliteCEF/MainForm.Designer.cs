@@ -80,7 +80,13 @@
             this.ConnectSaved = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.saveConName = new System.Windows.Forms.TextBox();
+            this.savedConnections_groupBox = new System.Windows.Forms.GroupBox();
+            this.connectionGroupBox = new System.Windows.Forms.GroupBox();
+            this.tables_groupBox = new System.Windows.Forms.GroupBox();
             this.mappingGroupBox.SuspendLayout();
+            this.savedConnections_groupBox.SuspendLayout();
+            this.connectionGroupBox.SuspendLayout();
+            this.tables_groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -93,14 +99,14 @@
             // DbPath
             // 
             this.DbPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DbPath.Location = new System.Drawing.Point(12, 43);
+            this.DbPath.Location = new System.Drawing.Point(11, 44);
             this.DbPath.Name = "DbPath";
-            this.DbPath.Size = new System.Drawing.Size(546, 26);
+            this.DbPath.Size = new System.Drawing.Size(496, 26);
             this.DbPath.TabIndex = 0;
             // 
             // Browse_Button
             // 
-            this.Browse_Button.Location = new System.Drawing.Point(564, 43);
+            this.Browse_Button.Location = new System.Drawing.Point(513, 44);
             this.Browse_Button.Name = "Browse_Button";
             this.Browse_Button.Size = new System.Drawing.Size(83, 26);
             this.Browse_Button.TabIndex = 1;
@@ -111,7 +117,7 @@
             // Query_TextBox
             // 
             this.Query_TextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Query_TextBox.Location = new System.Drawing.Point(509, 257);
+            this.Query_TextBox.Location = new System.Drawing.Point(509, 291);
             this.Query_TextBox.Multiline = true;
             this.Query_TextBox.Name = "Query_TextBox";
             this.Query_TextBox.Size = new System.Drawing.Size(461, 253);
@@ -120,7 +126,7 @@
             // 
             // CreateCef_Button
             // 
-            this.CreateCef_Button.Location = new System.Drawing.Point(887, 534);
+            this.CreateCef_Button.Location = new System.Drawing.Point(887, 568);
             this.CreateCef_Button.Name = "CreateCef_Button";
             this.CreateCef_Button.Size = new System.Drawing.Size(83, 26);
             this.CreateCef_Button.TabIndex = 3;
@@ -131,14 +137,14 @@
             // Cef_textBox
             // 
             this.Cef_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Cef_textBox.Location = new System.Drawing.Point(50, 633);
+            this.Cef_textBox.Location = new System.Drawing.Point(50, 667);
             this.Cef_textBox.Name = "Cef_textBox";
             this.Cef_textBox.Size = new System.Drawing.Size(873, 26);
             this.Cef_textBox.TabIndex = 4;
             // 
             // Connect_Button
             // 
-            this.Connect_Button.Location = new System.Drawing.Point(12, 75);
+            this.Connect_Button.Location = new System.Drawing.Point(11, 76);
             this.Connect_Button.Name = "Connect_Button";
             this.Connect_Button.Size = new System.Drawing.Size(94, 26);
             this.Connect_Button.TabIndex = 5;
@@ -150,7 +156,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(504, 220);
+            this.label1.Location = new System.Drawing.Point(504, 254);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 25);
             this.label1.TabIndex = 6;
@@ -160,7 +166,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(45, 605);
+            this.label2.Location = new System.Drawing.Point(45, 639);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 25);
             this.label2.TabIndex = 7;
@@ -170,7 +176,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(7, 15);
+            this.label3.Location = new System.Drawing.Point(6, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(189, 25);
             this.label3.TabIndex = 8;
@@ -178,7 +184,7 @@
             // 
             // Close_Button
             // 
-            this.Close_Button.Location = new System.Drawing.Point(281, 75);
+            this.Close_Button.Location = new System.Drawing.Point(568, 41);
             this.Close_Button.Name = "Close_Button";
             this.Close_Button.Size = new System.Drawing.Size(94, 26);
             this.Close_Button.TabIndex = 9;
@@ -191,7 +197,7 @@
             this.queryError.AutoSize = true;
             this.queryError.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryError.ForeColor = System.Drawing.Color.Red;
-            this.queryError.Location = new System.Drawing.Point(595, 225);
+            this.queryError.Location = new System.Drawing.Point(595, 259);
             this.queryError.Name = "queryError";
             this.queryError.Size = new System.Drawing.Size(0, 18);
             this.queryError.TabIndex = 10;
@@ -229,7 +235,7 @@
             this.mappingGroupBox.Controls.Add(this.version_textBox);
             this.mappingGroupBox.Enabled = false;
             this.mappingGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.mappingGroupBox.Location = new System.Drawing.Point(16, 210);
+            this.mappingGroupBox.Location = new System.Drawing.Point(16, 244);
             this.mappingGroupBox.Name = "mappingGroupBox";
             this.mappingGroupBox.Size = new System.Drawing.Size(448, 362);
             this.mappingGroupBox.TabIndex = 11;
@@ -544,7 +550,7 @@
             // 
             this.tables_comboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tables_comboBox.FormattingEnabled = true;
-            this.tables_comboBox.Location = new System.Drawing.Point(16, 162);
+            this.tables_comboBox.Location = new System.Drawing.Point(11, 43);
             this.tables_comboBox.Name = "tables_comboBox";
             this.tables_comboBox.Size = new System.Drawing.Size(226, 24);
             this.tables_comboBox.TabIndex = 18;
@@ -554,7 +560,7 @@
             // 
             this.id_comboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.id_comboBox.FormattingEnabled = true;
-            this.id_comboBox.Location = new System.Drawing.Point(281, 162);
+            this.id_comboBox.Location = new System.Drawing.Point(276, 43);
             this.id_comboBox.Name = "id_comboBox";
             this.id_comboBox.Size = new System.Drawing.Size(123, 24);
             this.id_comboBox.TabIndex = 19;
@@ -567,7 +573,7 @@
             this.label5.Enabled = false;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.DimGray;
-            this.label5.Location = new System.Drawing.Point(406, 162);
+            this.label5.Location = new System.Drawing.Point(401, 43);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 24);
             this.label5.TabIndex = 20;
@@ -578,7 +584,7 @@
             this.comboBox15.Enabled = false;
             this.comboBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox15.FormattingEnabled = true;
-            this.comboBox15.Location = new System.Drawing.Point(424, 162);
+            this.comboBox15.Location = new System.Drawing.Point(428, 43);
             this.comboBox15.Name = "comboBox15";
             this.comboBox15.Size = new System.Drawing.Size(40, 24);
             this.comboBox15.TabIndex = 30;
@@ -588,7 +594,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(12, 139);
+            this.label14.Location = new System.Drawing.Point(7, 16);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(98, 20);
             this.label14.TabIndex = 31;
@@ -597,7 +603,7 @@
             // onlyBox
             // 
             this.onlyBox.AutoSize = true;
-            this.onlyBox.Location = new System.Drawing.Point(486, 166);
+            this.onlyBox.Location = new System.Drawing.Point(481, 47);
             this.onlyBox.Name = "onlyBox";
             this.onlyBox.Size = new System.Drawing.Size(71, 17);
             this.onlyBox.TabIndex = 32;
@@ -608,7 +614,7 @@
             // saveConnection
             // 
             this.saveConnection.AutoSize = true;
-            this.saveConnection.Location = new System.Drawing.Point(124, 81);
+            this.saveConnection.Location = new System.Drawing.Point(123, 82);
             this.saveConnection.Name = "saveConnection";
             this.saveConnection.Size = new System.Drawing.Size(107, 17);
             this.saveConnection.TabIndex = 33;
@@ -619,14 +625,14 @@
             // 
             this.savedConnections.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.savedConnections.FormattingEnabled = true;
-            this.savedConnections.Location = new System.Drawing.Point(707, 44);
+            this.savedConnections.Location = new System.Drawing.Point(26, 45);
             this.savedConnections.Name = "savedConnections";
             this.savedConnections.Size = new System.Drawing.Size(264, 26);
             this.savedConnections.TabIndex = 34;
             // 
             // ConnectSaved
             // 
-            this.ConnectSaved.Location = new System.Drawing.Point(877, 81);
+            this.ConnectSaved.Location = new System.Drawing.Point(201, 76);
             this.ConnectSaved.Name = "ConnectSaved";
             this.ConnectSaved.Size = new System.Drawing.Size(94, 26);
             this.ConnectSaved.TabIndex = 35;
@@ -638,7 +644,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(702, 15);
+            this.label15.Location = new System.Drawing.Point(21, 16);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(201, 25);
             this.label15.TabIndex = 36;
@@ -646,44 +652,77 @@
             // 
             // saveConName
             // 
-            this.saveConName.Location = new System.Drawing.Point(124, 104);
+            this.saveConName.Location = new System.Drawing.Point(123, 105);
             this.saveConName.Name = "saveConName";
             this.saveConName.Size = new System.Drawing.Size(102, 20);
             this.saveConName.TabIndex = 37;
+            // 
+            // savedConnections_groupBox
+            // 
+            this.savedConnections_groupBox.Controls.Add(this.label15);
+            this.savedConnections_groupBox.Controls.Add(this.savedConnections);
+            this.savedConnections_groupBox.Controls.Add(this.ConnectSaved);
+            this.savedConnections_groupBox.Location = new System.Drawing.Point(669, 12);
+            this.savedConnections_groupBox.Name = "savedConnections_groupBox";
+            this.savedConnections_groupBox.Size = new System.Drawing.Size(301, 136);
+            this.savedConnections_groupBox.TabIndex = 38;
+            this.savedConnections_groupBox.TabStop = false;
+            // 
+            // connectionGroupBox
+            // 
+            this.connectionGroupBox.Controls.Add(this.label3);
+            this.connectionGroupBox.Controls.Add(this.DbPath);
+            this.connectionGroupBox.Controls.Add(this.saveConName);
+            this.connectionGroupBox.Controls.Add(this.Connect_Button);
+            this.connectionGroupBox.Controls.Add(this.saveConnection);
+            this.connectionGroupBox.Controls.Add(this.Browse_Button);
+            this.connectionGroupBox.Location = new System.Drawing.Point(16, 12);
+            this.connectionGroupBox.Name = "connectionGroupBox";
+            this.connectionGroupBox.Size = new System.Drawing.Size(610, 136);
+            this.connectionGroupBox.TabIndex = 39;
+            this.connectionGroupBox.TabStop = false;
+            // 
+            // tables_groupBox
+            // 
+            this.tables_groupBox.Controls.Add(this.label14);
+            this.tables_groupBox.Controls.Add(this.Close_Button);
+            this.tables_groupBox.Controls.Add(this.tables_comboBox);
+            this.tables_groupBox.Controls.Add(this.onlyBox);
+            this.tables_groupBox.Controls.Add(this.id_comboBox);
+            this.tables_groupBox.Controls.Add(this.label5);
+            this.tables_groupBox.Controls.Add(this.comboBox15);
+            this.tables_groupBox.Location = new System.Drawing.Point(16, 154);
+            this.tables_groupBox.Name = "tables_groupBox";
+            this.tables_groupBox.Size = new System.Drawing.Size(679, 84);
+            this.tables_groupBox.TabIndex = 40;
+            this.tables_groupBox.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1006, 705);
-            this.Controls.Add(this.saveConName);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.ConnectSaved);
-            this.Controls.Add(this.savedConnections);
-            this.Controls.Add(this.saveConnection);
-            this.Controls.Add(this.onlyBox);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.comboBox15);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.id_comboBox);
-            this.Controls.Add(this.tables_comboBox);
+            this.ClientSize = new System.Drawing.Size(986, 737);
+            this.Controls.Add(this.tables_groupBox);
+            this.Controls.Add(this.connectionGroupBox);
+            this.Controls.Add(this.savedConnections_groupBox);
             this.Controls.Add(this.mappingGroupBox);
             this.Controls.Add(this.queryError);
-            this.Controls.Add(this.Close_Button);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Connect_Button);
             this.Controls.Add(this.Cef_textBox);
             this.Controls.Add(this.CreateCef_Button);
             this.Controls.Add(this.Query_TextBox);
-            this.Controls.Add(this.Browse_Button);
-            this.Controls.Add(this.DbPath);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.mappingGroupBox.ResumeLayout(false);
             this.mappingGroupBox.PerformLayout();
+            this.savedConnections_groupBox.ResumeLayout(false);
+            this.savedConnections_groupBox.PerformLayout();
+            this.connectionGroupBox.ResumeLayout(false);
+            this.connectionGroupBox.PerformLayout();
+            this.tables_groupBox.ResumeLayout(false);
+            this.tables_groupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -743,5 +782,8 @@
         private System.Windows.Forms.Button ConnectSaved;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox saveConName;
+        private System.Windows.Forms.GroupBox savedConnections_groupBox;
+        private System.Windows.Forms.GroupBox connectionGroupBox;
+        private System.Windows.Forms.GroupBox tables_groupBox;
     }
 }

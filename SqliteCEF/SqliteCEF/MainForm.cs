@@ -17,7 +17,7 @@ namespace SqliteCEF
         {
             InitializeComponent();
 
-            Close_Button.Enabled = false;
+            tables_groupBox.Enabled = false;
             CreateCef_Button.Enabled = false;
         }
 
@@ -57,17 +57,13 @@ namespace SqliteCEF
                                 }
                             }
 
-                            saveConnection.Checked = false;
-                            saveConnection.Enabled = false;
+                            connectionGroupBox.Enabled = false;
+                            savedConnections_groupBox.Enabled = false;
 
                             saveConName.Text = string.Empty;
-                            saveConName.Enabled = false;
-                            savedConnections.Enabled = false;
+                            saveConnection.Checked = false;
 
-                            Connect_Button.Enabled = false;
-                            ConnectSaved.Enabled = false;
-                            Browse_Button.Enabled = false;
-                            Close_Button.Enabled = true;
+                            tables_groupBox.Enabled = true;
                             CreateCef_Button.Enabled = true;
                             CreateQuery.Enabled = true;
                             mappingGroupBox.Enabled = true;
@@ -127,16 +123,14 @@ namespace SqliteCEF
             {
                 dbConnection.Close();
 
-                Connect_Button.Enabled = true;
-                Browse_Button.Enabled = true;
-                Close_Button.Enabled = false;
+                connectionGroupBox.Enabled = true;
+                savedConnections_groupBox.Enabled = true;
+
+                tables_groupBox.Enabled = false;
                 CreateCef_Button.Enabled = false;
                 CreateQuery.Enabled = false;
                 mappingGroupBox.Enabled = false;
-                ConnectSaved.Enabled = true;
-                saveConnection.Enabled = true;
-                saveConName.Enabled = true;
-                savedConnections.Enabled = true;
+
                 tables_comboBox.Items.Clear();
                 tables_comboBox.SelectedItem = null;
                 id_comboBox.Items.Clear();
@@ -370,16 +364,15 @@ namespace SqliteCEF
 
                     if (dbConnection.IsConnect(connectionString))
                     {
-                        saveConnection.Checked = false;
-                        saveConnection.Enabled = false;
 
                         saveConName.Text = string.Empty;
-                        saveConName.Enabled = false;
-                        savedConnections.Enabled = false;
+                        saveConnection.Checked = false;
+                        savedConnections.Text = string.Empty;
 
-                        ConnectSaved.Enabled = false;
-                        Connect_Button.Enabled = false;
-                        Browse_Button.Enabled = false;
+                        connectionGroupBox.Enabled = false;
+                        savedConnections_groupBox.Enabled = false;
+                        tables_groupBox.Enabled = true;
+
                         Close_Button.Enabled = true;
                         CreateCef_Button.Enabled = true;
                         CreateQuery.Enabled = true;
@@ -400,7 +393,7 @@ namespace SqliteCEF
             }
             else
             {
-                MessageBox.Show("Please, chose database from file explorer!");
+                MessageBox.Show("Please, chose connection!");
             }
         }
     }
